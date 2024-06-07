@@ -29,10 +29,27 @@ android {
         }
     }
 
+    flavorDimensions += "mvvm"
+
+    productFlavors {
+
+        create("live")
+        {
+            buildConfigField("String", "BASE_URL", "\"https://console-staging1.neo-world.com\"")
+            buildConfigField("String", "BUILD_STATUS", "\"Staging\"")
+        }
+        create("staging")
+        {
+            buildConfigField("String", "BASE_URL", "\"https://console-staging1.neo-world.com\"")
+            buildConfigField("String", "BUILD_STATUS", "\"Staging\"")
+        }
+    }
+
 
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        buildConfig = true
     }
 
     compileOptions {
@@ -59,6 +76,7 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
+    implementation(libs.rxjava)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
 

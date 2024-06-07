@@ -2,7 +2,7 @@ package com.mukund.mvvmcodearchitecture.util.customFunction
 
 import android.view.View
 
-class ExtensionFunction {
+object ExtensionFunction {
 
     fun View.show() {
         visibility = View.VISIBLE
@@ -16,7 +16,7 @@ class ExtensionFunction {
         visibility = View.INVISIBLE
     }
 
-    fun View.setSafeOnClickListener(onSafeClick:(View)-> Unit)
+    fun View.setOnSafeClickListener(onSafeClick:(View)-> Unit)
     {
         val safeClickListener= SafeClickListener{
             onSafeClick(it)

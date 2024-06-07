@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MVVM Code Architecture</string>
+    <string name="get_config">Get Config</string>
 </resources>

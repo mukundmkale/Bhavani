@@ -1,5 +1,6 @@
 package com.mukund.mvvmcodearchitecture.api
 
+import com.mukund.mvvmcodearchitecture.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -8,21 +9,23 @@ import okhttp3.OkHttpClient
 import okhttp3.OkHttpClient.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(SingletonComponent::class)
-class RetrofitClientModule {
+class RetrofitClientProvider {
 
     @Provides
     @Singleton
     fun providesRetrofitBuilder(clint:OkHttpClient): Retrofit =
         Retrofit.Builder()
             .client(clint)
-            .baseUrl("")
-           // .addCallAdapterFactory()
+            .baseUrl(BuildConfig.BASE_URL)
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -37,6 +40,7 @@ class RetrofitClientModule {
 interceptor.level=HttpLoggingInterceptor.Level.BODY
        return Builder()
              .addInterceptor(interceptor)
+           .addInterceptor(TokenInterceptor())
             .readTimeout(90, TimeUnit.SECONDS)
             .connectTimeout(90, TimeUnit.SECONDS)
             .build()
